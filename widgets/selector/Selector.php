@@ -25,7 +25,7 @@ class Selector extends InputWidget
      */
     public $multiple = false;
 
-    private $fileManagerPathTpl = 'dialog/index?callback=filemanager_selector_callback&unique_name=%s&multiple=%s&field_id=%s';
+    private $fileManagerPathTpl = '/dialog/index?callback=filemanager_selector_callback&unique_name=%s&multiple=%s&field_id=%s';
 
     public function init()
     {

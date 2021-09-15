@@ -296,4 +296,4 @@ you can use that's static functions to work with your files across your app:
 I'll put complete documentation asap.
 
 If you need any help just email me.
-<a href="mailto:masoudvatandoost1@gmail.com">masoudvatandoost1@gmail.com</a>
+<a href="https://vatandoost.com">vatandoost.com</a>

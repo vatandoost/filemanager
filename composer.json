@@ -1,9 +1,9 @@
 {
-    "name": "vatandoost/filemanager",
+    "name": "vatandoost/yii2-filemanager",
     "description": "Yii2 filemanager",
-    "type": "library",
+    "type": "yii2-extension",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "masoud vatandoost",
