@@ -23,8 +23,8 @@ class m200801_155600_filemanager_file_type extends Migration
             'files_path' => $this->string(255),
             'manager_class' => $this->string(500),
             'handler_type' => $this->tinyInteger(2)->defaultValue(1),
-            'has_public_thumb' => $this->boolean()->notNull(),
-            'has_force_relation_id' => $this->boolean()->notNull()
+            'has_public_thumb' => $this->boolean()->notNull()->defaultValue(0),
+            'has_force_relation_id' => $this->boolean()->notNull()->defaultValue(0)
                 ->comment("force to send a relation Id in Dialog to see and upload files "),
         ]);
     }

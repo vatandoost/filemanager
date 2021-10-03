@@ -142,7 +142,8 @@ function updateSelections() {
 }
 
 function getFiles() {
-  let files = [], selector = '.selection:checkbox:checked:visible';
+  let files = [],
+    selector = '.selection:checkbox:checked:visible';
   jQuery(selector).each(function () {
     var file = jQuery(this).val();
     files.push(file);
@@ -186,7 +187,7 @@ function getParentWindow() {
   return window.parent;
 }
 
-function select(fileId) {
+function select(fileId, url) {
   if (typeof fileId === 'undefined') {
     updateSelections();
     var files = getFiles();

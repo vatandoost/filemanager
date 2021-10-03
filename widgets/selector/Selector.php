@@ -25,12 +25,22 @@ class Selector extends InputWidget
      */
     public $multiple = false;
 
-    private $fileManagerPathTpl = 'dialog/index?callback=filemanager_selector_callback&unique_name=%s&multiple=%s&field_id=%s';
+    private $fileManagerPathTpl = '/dialog/index?callback=filemanager_selector_callback&unique_name=%s&multiple=%s&field_id=%s';
 
     public function init()
     {
         $module = Module::getInstance();
         $this->fileManagerPathTpl = $module->id . $this->fileManagerPathTpl;
+        if (!array_key_exists('id', $this->options)) {
+            $class = explode('\\', get_class($this->model));
+            $class = strtolower(end($class));
+            $this->options['id'] = "$class-$this->attribute";
+        }
+        if (!array_key_exists('class', $this->options)) {
+            $this->options['class'] = 'form-control';
+        }
+
+        $this->options = array_merge($this->options, ['readonly' => true]);
     }
 
     /**
@@ -45,11 +55,6 @@ class Selector extends InputWidget
         if (!$this->fileManagerPathTpl) {
             throw new ErrorException();
         }
-        if (!array_key_exists('class', $this->options)) {
-            $this->options['class'] = 'form-control';
-        }
-
-        $this->options = array_merge($this->options, ['readonly' => true]);
 
         $value = $this->value;
         $hiddenInput = Html::hiddenInput($this->name, $this->value, [
@@ -73,7 +78,8 @@ class Selector extends InputWidget
                 $labelText = "$count " . Module::t('file(s) selected');
             }
         }
-        $input = Html::textInput('_file_name_' . $this->name,
+        $input = Html::textInput(
+            '_file_name_' . $this->name,
             $labelText,
             array_merge($this->options, ['id' => 'label_' . $this->options['id']])
         );
@@ -116,7 +122,5 @@ class Selector extends InputWidget
             $messages = 'file_selector_msgs=' . json_encode($messages) . ';' . PHP_EOL;
             $view->registerJs($messages . '$( document ).ready(function() { initFileSelectorPopups(); });', \yii\web\View::POS_READY);
         }
-
-
     }
 }

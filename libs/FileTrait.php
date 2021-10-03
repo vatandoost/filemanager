@@ -211,7 +211,7 @@ trait FileTrait
                     $transaction->rollBack();
                     throw new yii\web\ServerErrorHttpException(Module::t('error in save file'));
                 }
-//remove if there is not multiple file
+                //remove if there is not multiple file
                 if (!$info['multiple'] && !$this->isNewRecord) {
                     if (!empty($old_file_id)) {
                         FileHelper::deleteFile($old_file_id);
@@ -317,7 +317,7 @@ trait FileTrait
 
     public function getFileUrl($file_id, $thumb = false)
     {
-        return (new FileHelper())->getFileUrl($file_id, $thumb);
+        return FileHelper::getFileUrl($file_id, $thumb);
     }
 
     public function getFiles($attribute, $onlyModels = false)
