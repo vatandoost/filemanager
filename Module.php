@@ -63,6 +63,7 @@ class Module extends \yii\base\Module implements yii\base\BootstrapInterface
     public $privateFiles;
     public $publicFiles;
     public $publicFilesUrl = '/uploads';
+    public $host = "";
 
 
     public function bootstrap($app)
@@ -77,7 +78,9 @@ class Module extends \yii\base\Module implements yii\base\BootstrapInterface
         Yii::setAlias('@publicFiles', $this->publicFiles);
         Yii::setAlias('@privateFiles', $this->privateFiles);
         Yii::setAlias('@vatandoost', dirname(__DIR__));
-
+        if ($app instanceof \yii\console\Application) {
+        	$this->controllerNamespace = 'vatandoost\filemanager\commands';
+        }
     }
 
     public function init()
@@ -109,5 +112,4 @@ class Module extends \yii\base\Module implements yii\base\BootstrapInterface
         $module = self::getInstance();
         return Yii::$app->user->can($module->superAdminRole);
     }
-
 }
