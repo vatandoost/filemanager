@@ -75,7 +75,8 @@ class FileType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['is_public', 'max_size', 'handler_type', 'has_public_thumb', 'has_force_relation_id'], 'integer'],
+            [['max_size', 'handler_type',], 'integer'],
+            [['is_public', 'has_public_thumb', 'has_force_relation_id'], 'boolean'],
             [['name', 'title', 'mime_types', 'extensions', 'files_path'], 'string', 'max' => 255],
             [['manager_class'], 'string', 'max' => 500],
         ];

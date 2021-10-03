@@ -43,6 +43,9 @@ class LocalHandler extends BaseObject implements HandlerInterface
     public function getPublicBaseUrl($subDirectory = '')
     {
         $module = Module::getInstance();
+        if (!empty($module->host)) {
+            return rtrim($module->host, '/') . "$module->publicFilesUrl/$subDirectory/";
+        }
         return Url::to(["$module->publicFilesUrl/$subDirectory"], true) . '/';
     }
 
@@ -76,7 +79,6 @@ class LocalHandler extends BaseObject implements HandlerInterface
                 $thumbDirectory = $this->getPublicBasePath($fileType->files_path);
             }
             $thumbPath = Utils::generateThumb($fileName, $thumbDirectory, $W, $H);
-
         }
 
         return true;

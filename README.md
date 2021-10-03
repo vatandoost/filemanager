@@ -82,6 +82,7 @@ available configurations :
     'publicFiles' => '@frontend/web/uploads',
     'privateFiles' => '@frontend/uploads',
     'publicFilesUrl' => '/uploads',
+    'host' => 'http://optional.com:20180', // this param is option, if not exist it uses current server info
     'params' => [
         'upload_files' => true,
         'url_upload' => true,

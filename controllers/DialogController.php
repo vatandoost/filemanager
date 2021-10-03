@@ -92,6 +92,9 @@ class DialogController extends Controller
             throw new yii\web\ServerErrorHttpException("this file type does not exist");
         }
         $manager = $fileType->getManager();
+        if (property_exists($manager, 'fileTypeName')) {
+            $manager->fileTypeName = $fileType->name;
+        }
 
         if (method_exists($manager, 'fileTypeConfig')) {
             $params = array_merge($params, $manager->fileTypeConfig($fileType, $relation_id));
@@ -104,12 +107,16 @@ class DialogController extends Controller
 
         /** @var FileValidator[] $validators */
         $validators = $manager->getActiveFileValidators();
-        $is_class_name_type = strtolower(strtr($manager::className(), '\\', '_')) == $file_type_name;
-
+        $is_class_name_type = strtolower(strtr(get_class($manager), '\\', '_')) == $file_type_name;
+        $is_default_manager = get_class($manager) == BaseManager::class;
         $attribute = null;
         $is_multiple = true;
         foreach ($validators as $validator) {
-            if (!(empty($validator->file_type_name) && $is_class_name_type) && $validator->file_type_name != $file_type_name) {
+            if (
+                !(empty($validator->file_type_name) && $is_class_name_type) &&
+                !(empty($validator->file_type_name) && $is_default_manager) &&
+                $validator->file_type_name != $file_type_name
+            ) {
                 continue;
             }
             $attribute = is_array($validator->attributes) ? $validator->attributes[0] : $validator->attributes;
@@ -123,9 +130,6 @@ class DialogController extends Controller
             if (empty($manager)) {
                 throw new yii\web\NotFoundHttpException("related model does not exist");
             }
-        }
-        if (property_exists($manager, 'fileTypeName')) {
-            $manager->fileTypeName = $fileType->name;
         }
         if (!empty($relation_field) && property_exists($manager, $relation_field)) {
             $manager->$relation_field = $relation_id;
@@ -272,7 +276,8 @@ class DialogController extends Controller
                 if (!isset($info['extension'])) {
                     $info['extension'] = '';
                 }
-                if (!in_array($info['extension'], $allowed_file_exts)
+                if (
+                    !in_array($info['extension'], $allowed_file_exts)
                     || !isset($is_allowed)
                     || $is_allowed === false
                 ) {
@@ -301,7 +306,6 @@ class DialogController extends Controller
                     } else {
                         $ret = '<textarea id="textfile_edit_area" style="width:100%;height:300px;">' . $data . '</textarea>';
                     }
-
                 }
 
                 return $ret;
@@ -352,5 +356,4 @@ class DialogController extends Controller
         readfile($pdf);
         exit;
     }
-
 }

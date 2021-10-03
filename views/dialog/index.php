@@ -20,6 +20,7 @@ DialogViewHelper::$assetUrl = $assetUrl;
 $module = Module::getInstance();
 $config = $module->params;
 
+
 $get = Yii::$app->request->getQueryParams();
 if (isset($get['editor'])) {
     $editor = strip_tags($get['editor']);
@@ -28,7 +29,7 @@ if (isset($get['editor'])) {
 }
 
 $disable_selector = Yii::$app->request->get('selector', 'on') == 'off';
-$is_multiple = $is_multiple && (empty($get['multiple']) || $get['multiple'] == '1');
+$is_multiple = $is_multiple && (!isset($get['multiple']) || $get['multiple'] === '1');
 
 $iconFileHeight = $module->params['image_preview_size']['h'] - 20;
 $style = <<<CSS
@@ -131,7 +132,7 @@ $this->registerJs($js, $this::POS_HEAD);
                             <label class="custom-control-label" for="select<?= $file['file_id'] ?>"></label>
                         </div>
                     <?php else: ?>
-                        <button class="btn selector bg-white" onclick="select('<?= $file['file_id'] ?>')">
+                        <button class="btn selector bg-white" onclick="select('<?= $file['file_id'] ?>','<?= $file['url'] ?>')">
                             <i class="fa fa-check-square-o text-success"></i>
                         </button>
                     <?php endif; ?>

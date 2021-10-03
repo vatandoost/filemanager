@@ -27,8 +27,7 @@ class FileHelper extends Component
             return self::getUnavailableUrl();
         }
         $handler = $file->fileType->getHandler();
-        return $handler->getFileUrl($file);
-
+        return $handler->getFileUrl($file, $thumb);
     }
 
     public static function getFileInfo($file_id)
