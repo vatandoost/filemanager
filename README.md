@@ -29,9 +29,13 @@ features:
  * get files query in your app to merge with other queries by selecting file addresses
  * use bootstrap4 theme
  * multi language
- 
-Screenshots
----
+
+
+## Demo
+[sample demo](https://github.com/vatandoost/filemanager_demo) 
+
+**Screenshots** 
+
 <a href="http://vatandoost.com/assets/filemanager/1.png">
     <img width="250px" src="http://vatandoost.com/assets/filemanager/1.png" alt="yii2 filemanager ui"/>
 </a>
@@ -45,8 +49,8 @@ Screenshots
     <img width="250px" src="http://vatandoost.com/assets/filemanager/4.png" alt="yii2 filemanager preview box"/>
 </a>
 
-Installation
----
+
+## Installation
 
 use composer
 ```
@@ -294,7 +298,14 @@ you can use that's static functions to work with your files across your app:
  * FileHelper::getFileContent($id = null, $model = null)
  * FileHelper::getLocalFilePath($file, $fileType = null)
 
-I'll put complete documentation asap.
+## Console Commands
 
-If you need any help just email me.
-<a href="https://vatandoost.com">vatandoost.com</a>
+after install module you can use below commands to manage file types:
+
+```
+#list of file types 
+php yii filemanager/files/types 
+
+# create new file type
+php yii filemanager/files/create-type
+```
